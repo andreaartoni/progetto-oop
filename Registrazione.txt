@@ -1,0 +1,149 @@
+Classe Registrazione ---> Sbagliata perchË non venivano inizializzate le varie entit‡ (nome, cognome etc.)
+
+
+
+package __ProgettoEsameOOP;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class Registrazione extends JFrame implements KeyListener, ActionListener {
+	private static final long serialVersionUID = 1L;
+	private JTextField nome;
+	private JTextField cognome;
+	private JTextField username;
+	private JTextField password;
+	private JComboBox<String> sesso;
+	private JTextField altezza;
+	private JTextField peso;
+	private JComboBox<String> attivit‡;
+	private JButton signin;
+	
+	public Registrazione() {
+		super("Registrazione");
+		this.setSize(new Dimension(380, 500));
+		this.setLayout(new GridLayout(10, 1));
+	
+		
+		JPanel p1 = pannello1("Nome:", nome, 25);
+		JPanel p2 = pannello1("Cognome:", cognome, 25);
+		JPanel p3 = pannello1("*UserName:", username, 25);
+		JPanel p4 = pannello1("*Password:", password, 25);
+		
+		this.add(p1);
+		this.add(p2);
+		this.add(p3);
+		this.add(p4);
+		
+		String [] genderStr = {"uomo", "donna"};
+		JPanel p5 = pannello3("Sesso:", genderStr, sesso);
+		
+		this.add(p5);
+		
+		JPanel p6 = pannello2("Altezza (cm):", altezza, 10, "170");
+		JPanel p7 = pannello2("Peso (kg):", peso, 10, "60");
+		
+		this.add(p6);
+		this.add(p7);
+		
+		String [] attivit‡Str = {"Da scarsa ad assente", "Attivit‡ leggera", "Attivit‡ moderata", "Attivit‡ pesante"};
+		JPanel p8 = pannello3("Livello di attivit‡:", attivit‡Str, attivit‡);
+		
+		this.add(p8);
+		
+		JPanel p9 = pannello(null);
+		signin = new JButton("Iscriviti");
+		signin.addActionListener(this);
+		p9.add(signin);
+		
+		this.add(p9);
+		
+		JPanel p10 = pannello("* indica i campi obbligatori");
+		this.add(p10);
+				
+		this.setVisible(true);
+	}
+	
+	/*metodo per la costruzione di un pannello*/
+	private JPanel pannello(String str){
+		JPanel p = new JPanel();
+		p.setLayout(new FlowLayout());
+		
+		JLabel l = new JLabel(str);
+		p.add(l);	
+				
+		return p;
+	}
+	
+	private JPanel pannello1(String str, JTextField obj, int dim){
+		JPanel p = pannello(str);
+			
+		obj = new JTextField(dim);
+		p.add(obj);
+			
+		return p;
+	}
+	
+	private JPanel pannello2(String str, JTextField obj, int dim, String n){
+		JPanel p = pannello(str);
+		
+		obj = new JTextField(dim);
+		obj.addKeyListener(this);
+		obj.setText(n);
+		p.add(obj);
+		
+		return p;
+	}
+	
+	private JPanel pannello3(String str, String [] lista, JComboBox<String> jcb){
+		JPanel p = pannello(str);
+		
+		jcb = new JComboBox<String>(lista);
+		p.add(jcb);
+		
+		return p;
+	}
+
+	/*metodo che determina l'azione da eseguire quando viene inserito un carattere non numerico 
+	 *nei TextField peso e altezza*/
+	public void keyPressed(KeyEvent e) {
+		char c = e.getKeyChar();
+		if((c < '0' || c > '9') && c != '\b'){
+			new Errore("Inserito un carattere non numerico");
+			JTextField tf = (JTextField)e.getSource();
+		    tf.setText(null);
+		}
+	}
+
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/*metodo che determina l'azione da eseguire quando viene premuto il bottone per l'iscrizione
+	 * i campi username e password non possono essere vuoti*/
+	public void actionPerformed(ActionEvent e) {
+	/*	if(username.getText().isEmpty() || password.getText().isEmpty()){
+			new Errore("Riempire i campi obbligatori");
+		}*/
+		System.out.println(username.getText());
+		System.out.println(altezza.getText() + peso.getText());
+		/*if(Integer.parseInt(altezza.getText())>300){
+			new Errore("Inserire un'altezza non superiore ai 300 cm\nImpossibile procedere con la registrazione");
+		}
+		if(Integer.parseInt(peso.getText())>500){
+			new Errore("Inserire un peso non superiore ai 500 kg\nImpossibile procedere con la registrazione");
+		}*/
+		
+	}
+
+}

@@ -9,7 +9,7 @@ public class Database {
 	public Database (){
 		try {
 			Class.forName("org.sqlite.JDBC");
-			con = DriverManager.getConnection("jdbc:sqlite:dieta.db");
+			con = DriverManager.getConnection("jdbc:sqlite:utente.db");
 		}
 		catch (ClassNotFoundException e){
 			System.out.println("Errore nel caricamento del driver");
@@ -19,7 +19,7 @@ public class Database {
 		}
 	}
 	
-	/*metodo per l'interagire con il DB*/
+	/*metodo per l'interagire con il DB ed eseguire delle query*/
 	public static ResultSet query(String qry){
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -30,17 +30,30 @@ public class Database {
 			System.out.println("Errore nella creazione di uno Statement");
 		}
 		try {
-			if(qry.startsWith("SELECT")){
-				rs = stmt.executeQuery(qry);
-			}
-			else {
-				stmt.executeUpdate(qry);
-			}
+			rs = stmt.executeQuery(qry);
 		}
 		catch (SQLException e){
 			System.out.println("Errore nell'interazione con il DB");	
 		}
 		return rs;		
+	}
+	
+	/*metodo per l'interagire con il DB ed eseguire delle operazioni di INSERT, UPDATE or DELETE*/
+	public static void update(String qry){
+		Statement stmt = null;
+		
+		try {
+			stmt = con.createStatement();
+		} catch (SQLException e) {
+			System.out.println("Errore nella creazione di uno Statement");
+		}
+		try {
+			stmt.executeUpdate(qry);
+		}
+		catch (SQLException e){
+			System.out.println("Errore nell'interazione con il DB");	
+		}
+			
 	}
 	
 	public void closeConnection() {

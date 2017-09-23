@@ -16,4 +16,11 @@ public class Errore extends JFrame{
 			this.setMinimumSize(new Dimension(400, 100));
 			this.setVisible(true);
 		}
+		
+		public Errore (String str1, String str2){
+			this(str1);
+			JLabel msg = new JLabel(str2, JLabel.RIGHT);
+			this.add(msg);
+		}
+
 }

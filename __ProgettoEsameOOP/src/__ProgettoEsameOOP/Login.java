@@ -76,12 +76,12 @@ public class Login extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 	
-	/* metodo che determina l'azione da eseguire alla pressione del bottone di login o di registrazione*/
+	/*metodo che determina l'azione da eseguire alla pressione del bottone di login o di registrazione*/
 	public void actionPerformed(ActionEvent e){
 		if(e.getSource() == login){	
 			try {
 				ResultSet rs;
-				rs = Database.query("SELECT * from UTENTE where userid = '" +username.getText()+ "' AND psw = '" +password.getText()+ "'");
+				rs = Database.query("SELECT * from Utente where username = '" +username.getText()+ "' AND password = '" +password.getText()+ "'");
 				if (rs.next()){
 					/* fai qualcosa*/
 				}
@@ -99,6 +99,7 @@ public class Login extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
+		new Database();
 		new Login();
 	}
 	
