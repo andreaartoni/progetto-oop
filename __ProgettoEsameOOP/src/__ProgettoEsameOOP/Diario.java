@@ -27,7 +27,7 @@ public class Diario {
 		if (db.equals("sqlite")) {
 			// load the sqlite-JDBC driver using the current class loader
 			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection("jdbc:sqlite:dieta.db");
+			connection = DriverManager.getConnection("jdbc:sqlite:utente.db");
 		} else if (db.equals("postgres")) {
 			Class.forName("org.postgresql.Driver");
 			connection = DriverManager.getConnection("jdbc:postgresql:///dbname", "username", "password");
@@ -295,6 +295,7 @@ public class Diario {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			System.out.println("Errore nel caricamento del driver");
 			e.printStackTrace();
 		}
 	}

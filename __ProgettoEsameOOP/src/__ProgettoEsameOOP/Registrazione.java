@@ -30,8 +30,8 @@ public class Registrazione extends JFrame implements KeyListener, ActionListener
 		String [] genderStr = {"uomo", "donna"};
 		sesso = pannello3("Sesso:", genderStr);
 		
-		altezza = pannello2("Altezza (cm):", 10, "170");
-		peso = pannello2("Peso (kg):", 10, "60");
+		altezza = pannello2("*Altezza (cm):", 10);
+		peso = pannello2("*Peso (kg):", 10);
 		
 		String [] attivitàStr = {"Da scarsa ad assente", "Attività leggera", "Attività moderata", "Attività pesante"};
 		attività = pannello3("Livello di attività:", attivitàStr);
@@ -70,13 +70,12 @@ public class Registrazione extends JFrame implements KeyListener, ActionListener
 		return o;
 	}
 	
-	private JTextField pannello2(String str, int dim, String n){
+	private JTextField pannello2(String str, int dim){
 		JPanel p = pannello(str);
 		JTextField o = new JTextField(dim);
 		
 		o = new JTextField(dim);
 		o.addKeyListener(this);
-		o.setText(n);
 		p.add(o);
 		
 		this.add(p);
@@ -117,11 +116,11 @@ public class Registrazione extends JFrame implements KeyListener, ActionListener
 	}
 
 	/*metodo che determina l'azione da eseguire quando viene premuto il bottone per l'iscrizione
-	 * (i campi username e password non possono essere vuoti, l'altezza non può superare i 300 cm, il peso non può superare i 500 kg)
+	 * (i campi username, password, altezza e peso non possono essere vuoti, l'altezza non può superare i 300 cm, il peso non può superare i 500 kg)
 	 * si cerca nel DB se lo username scelto può essere accettato o meno*/
 	public void actionPerformed(ActionEvent e) {
 		boolean cont = true;
-		if(username.getText().isEmpty() || password.getText().isEmpty()){
+		if(username.getText().isEmpty() || password.getText().isEmpty() || altezza.getText().isEmpty() || peso.getText().isEmpty()){
 			new Errore("Riempire i campi obbligatori");
 			cont = false;
 		}

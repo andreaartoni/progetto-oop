@@ -439,7 +439,7 @@ public class modello extends JFrame {
 		Calcola1.addActionListener(new ActionListener(){
 			public void actionPerformed (ActionEvent e){
 					try {
-						pollo.lato();
+						Diario.lato();
 					} catch(Exception ex) {
 					     ex.printStackTrace();
 					}
@@ -449,7 +449,7 @@ public class modello extends JFrame {
 		Calcola2.addActionListener(new ActionListener(){
 			public void actionPerformed (ActionEvent e){
 					try {
-						pollo.palo();
+						Diario.palo();
 					} catch(Exception ex) {
 					     ex.printStackTrace();
 					}	
@@ -459,7 +459,7 @@ public class modello extends JFrame {
 		Calcola3.addActionListener(new ActionListener(){
 			public void actionPerformed (ActionEvent e){
 					try {
-						pollo.petto();
+						Diario.petto();
 					} catch(Exception ex) {
 					     ex.printStackTrace();
 					}	
@@ -470,7 +470,7 @@ public class modello extends JFrame {
 			public void actionPerformed (ActionEvent e){
 					try {
 						
-						pollo.coscia();
+						Diario.coscia();
 					} catch(SQLException ex) {
 					     ex.printStackTrace();
 					}	
@@ -483,7 +483,7 @@ public class modello extends JFrame {
 		Calcola5.addActionListener(new ActionListener(){
 			public void actionPerformed (ActionEvent e){
 					try{
-						pollo.inserisci();
+						Diario.inserisci();
 					}catch (Exception ex)
 			        {
 			            ex.printStackTrace();
