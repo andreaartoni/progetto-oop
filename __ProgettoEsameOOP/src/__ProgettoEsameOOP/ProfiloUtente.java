@@ -9,9 +9,9 @@ public class ProfiloUtente extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JLabel username;
 	private JLabel dataDiNascita;
-	private JLabel Sesso;
-	private JLabel Altezza;
-	private JLabel Peso;
+	private JLabel sesso;
+	private JLabel altezza;
+	private JLabel peso;
 	
 	
 	public ProfiloUtente(){

@@ -8,7 +8,7 @@ import javax.swing.*;
 public class Login extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JTextField username;
-	private JTextField password;
+	private JPasswordField password;
 	private JButton login;
 	private JButton registrazione;
 	
@@ -36,7 +36,7 @@ public class Login extends JFrame implements ActionListener {
 		JLabel user = new JLabel("username:");
 		username = new JTextField(20);
 		JLabel psw = new JLabel("password:");
-		password = new JTextField(20);
+		password = new JPasswordField(20);
 		login = new JButton("Login");
 		login.addActionListener(this);
 		
@@ -80,10 +80,10 @@ public class Login extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e){
 		if(e.getSource() == login){	
 			try {
-				ResultSet rs;
-				rs = Database.query("SELECT * from Utente where username = '" +username.getText()+ "' AND password = '" +password.getText()+ "'");
+				ResultSet rs = Database.query("SELECT * from Utente where username = '" +username.getText()+ "' AND password = '" +String.valueOf(password.getPassword())+ "'");
 				if (rs.next()){
-					/* fai qualcosa*/
+					this.dispose();
+					new HomePage(username.getText());
 				}
 				else {
 					new Errore("Username o Password errati");
@@ -99,7 +99,8 @@ public class Login extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		new Database();
+		Database db = new Database();
+		db.testInsert();
 		new Login();
 	}
 	

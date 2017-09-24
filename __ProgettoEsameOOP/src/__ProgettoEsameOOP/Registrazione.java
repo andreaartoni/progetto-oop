@@ -141,13 +141,14 @@ public class Registrazione extends JFrame implements KeyListener, ActionListener
 					new Errore("Username non valido");
 				}
 				else {
-					Database.query("INSERT INTO Utente VALUES ('" +username.getText()+ "','" + password.getText()+ "','"
+					Database.update("INSERT INTO Utente VALUES ('" +username.getText()+ "','" + password.getText()+ "','"
 						+nome.getText()+ "','" + cognome.getText() + "','" +sesso.getSelectedItem()+ "','" 
 						+peso.getText()+ "','" +altezza.getText()+ "','" +attività.getSelectedItem()+ "')");
 		
 					JFrame p = new JFrame();
 					p.setMinimumSize(new Dimension(250, 70));
 					p.add(new JLabel("Registrazione avvenuta con successo", JLabel.CENTER));
+					this.dispose();
 					p.setVisible(true);
 				}	
 			}
