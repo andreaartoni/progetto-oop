@@ -7,44 +7,81 @@ import javax.swing.*;
 public class HomePage extends JFrame implements ActionListener, MouseListener{
 	private static final long serialVersionUID = 1L;
 	String username;
+	JPanel griglia;
+	JLabel diarioView;
+	JLabel diarioUpdate;
+	JMenuItem logout;
+	JMenuItem modificaProfilo;
 	
 	public HomePage(String u){
 		super("Home");
 		
 		username = u;
 		
-		this.setLayout(new GridLayout(5, 1));
+		this.setLayout(new BorderLayout());
 		
-		JLabel l = new JLabel(new String("ciao "+username), JLabel.LEADING);
-		this.add(l);
+		JLabel welcome = new JLabel(new String("ciao "+username)/*, JLabel.*/);
+		this.add(welcome, BorderLayout.NORTH);
 		
-		/*JPanel p = new JPanel();
-		JButton view = new JButton("Visualizza il tuo diario");
-		view.addActionListener(this);
-		p.add(view);
-		this.add(p);*/
-				
-		/*JLabel l1 = new JLabel(new ImageIcon("immagini/bilanciapiccola.png"), JLabel.LEADING);
-		l1.addMouseListener(this);
-		this.add(l1);*/
+		griglia = new JPanel();
+		griglia.setLayout(new GridLayout(1, 2));
 		
+		diarioView = pannello("Visualizza il tuo diario", "immagini/visualizza.png");
+		diarioUpdate = pannello("Aggiorna il tuo diario", "immagini/diario.png");
 	
+		this.add(griglia, BorderLayout.SOUTH);
 		
+		JMenuBar mb = new JMenuBar();
+		JMenu m = new JMenu("Opzioni");
+		logout = new JMenuItem("Logout");
+		modificaProfilo = new JMenuItem("Modifica Profilo");
 		
+		logout.addActionListener(this);
 		
-		//provare a fare una jlabel a cui agg
+		mb.add(m);
+		m.add(logout);
+		m.add(modificaProfilo);
+		
+		this.setJMenuBar(mb);
 		
 		this.setVisible(true);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		//new Diario();
+	private JLabel pannello(String str, String image){
+		JPanel p = new JPanel();
+		p.setLayout(new GridLayout(2, 1));
+		
+		JLabel l = new JLabel(str, JLabel.CENTER);
+		p.add(l);	
+		
+		JLabel img = new JLabel(new ImageIcon(image));
+		img.addMouseListener(this);
+		p.add(img);
+		
+		griglia.add(p);
+		
+		return img;
 	}
 
+	
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == logout){
+			this.dispose();
+			new Login();
+		}
+		if(e.getSource() == modificaProfilo){
+			//
+		}
+	}
+	
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		System.out.println("peso ideale");
+	public void mouseClicked(MouseEvent e) {
+		if(e.getSource() == diarioView){
+			//new ...
+		}
+		if(e.getSource() == diarioUpdate){
+			//new ...
+		}
 	}
 
 	@Override
@@ -70,5 +107,6 @@ public class HomePage extends JFrame implements ActionListener, MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
+
 	
 }

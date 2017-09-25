@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 import javax.swing.*;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 public class Login extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -101,7 +102,26 @@ public class Login extends JFrame implements ActionListener {
 	public static void main(String[] args) {
 		Database db = new Database();
 		db.testInsert();
+
+		try {
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+		        if ("Nimbus".equals(info.getName())) {
+		            UIManager.setLookAndFeel(info.getClassName());
+		            break;
+		        }
+		    }
+		} catch (UnsupportedLookAndFeelException e) {
+		    // handle exception
+		} catch (ClassNotFoundException e) {
+		    // handle exception
+		} catch (InstantiationException e) {
+		    // handle exception
+		} catch (IllegalAccessException e) {
+		    // handle exception
+		}
+		
 		new Login();
+		
 	}
 	
 	

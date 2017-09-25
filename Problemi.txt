@@ -2,5 +2,5 @@ Nella classe Registrazione quando vengono inseriti caratteri che non sono cifre
 non riesco a eliminare l'ultimo carattere digitato.
 ---> Si veda metodo keyPressed(KeyEvent e)
 
-Nella classe Registrazione non so come implemtare un'interfaccia che mi permetta
+Nella classe Registrazione non so come implemetare un'interfaccia che mi permetta
 di inserire la data di nascita 

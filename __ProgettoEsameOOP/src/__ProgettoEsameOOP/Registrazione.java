@@ -19,19 +19,19 @@ public class Registrazione extends JFrame implements KeyListener, ActionListener
 	
 	public Registrazione() {
 		super("Registrazione");
-		this.setMinimumSize(new Dimension(380, 500));
+		this.setMinimumSize(new Dimension(420, 500));
 		this.setLayout(new GridLayout(10, 1));
 	
-		nome = pannello1("Nome:", 25);
-		cognome = pannello1("Cognome:", 25);
+		nome = pannello1("        Nome:", 25);
+		cognome = pannello1("  Cognome:", 25);
 		username = pannello1("*UserName:", 25);
 		password = pannello1("*Password:", 25);
 		
 		String [] genderStr = {"uomo", "donna"};
 		sesso = pannello3("Sesso:", genderStr);
 		
-		altezza = pannello2("*Altezza (cm):", 10);
-		peso = pannello2("*Peso (kg):", 10);
+		altezza = pannello2("*Altezza (cm):", 5);
+		peso = pannello2("      *Peso (kg):", 5);
 		
 		String [] attivit‡Str = {"Da scarsa ad assente", "Attivit‡ leggera", "Attivit‡ moderata", "Attivit‡ pesante"};
 		attivit‡ = pannello3("Livello di attivit‡:", attivit‡Str);
