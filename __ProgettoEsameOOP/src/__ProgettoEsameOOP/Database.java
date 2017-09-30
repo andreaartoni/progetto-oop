@@ -10,7 +10,7 @@ public class Database {
 	public Database (){
 		try {
 			Class.forName("org.sqlite.JDBC");
-			con = DriverManager.getConnection("jdbc:sqlite:utente.db");
+			con = DriverManager.getConnection("jdbc:sqlite:database.db");
 		}
 		catch (ClassNotFoundException e){
 			System.out.println("Errore nel caricamento del driver");
@@ -30,8 +30,11 @@ public class Database {
 	public void testInsert() {
         try{
         	st.executeUpdate("CREATE TABLE IF NOT EXISTS Utente (username varchar(25) PRIMARY KEY, password varchar(30), "
-        			+ "nome varchar(15), cognome varchar(20), sesso varchar(5), peso int, "
+        			+ "nome varchar(15), cognome varchar(20), sesso varchar(5), annoDiNascita int, peso int, "
         			+ "altezza int, attività varchar(30))"); 
+        	
+        	st.executeUpdate("CREATE TABLE IF NOT EXISTS alimenti (nome VARCHAR(50) PRIMARY KEY ,kcal_100g INTEGER)");
+    		st.executeUpdate("CREATE TABLE IF NOT EXISTS sport (nome VARCHAR(50) PRIMARY KEY , kcal_ora INTEGER)");
         }
 		catch (SQLException e){ 
 			e.printStackTrace();

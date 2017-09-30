@@ -13,13 +13,19 @@ public class Errore extends JFrame{
 			JLabel msg = new JLabel(str, JLabel.RIGHT);
 			this.add(img);
 			this.add(msg);
-			this.setMinimumSize(new Dimension(400, 100));
+			this.setMinimumSize(new Dimension(400, 110));
 			this.setVisible(true);
 		}
 		
 		public Errore (String str1, String str2){
 			this(str1);
 			JLabel msg = new JLabel(str2, JLabel.RIGHT);
+			this.add(msg);
+		}
+		
+		public Errore (String str1, String str2, String str3){
+			this(str1, str2);
+			JLabel msg = new JLabel(str3, JLabel.RIGHT);
 			this.add(msg);
 		}
 

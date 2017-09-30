@@ -3,6 +3,8 @@ package __ProgettoEsameOOP;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
+import java.util.*;
+
 import javax.swing.*;
 
 public class Registrazione extends JFrame implements KeyListener, ActionListener {
@@ -12,6 +14,7 @@ public class Registrazione extends JFrame implements KeyListener, ActionListener
 	private JTextField username;
 	private JTextField password;
 	private JComboBox<String> sesso;
+	private JTextField annoDiNascita;
 	private JTextField altezza;
 	private JTextField peso;
 	private JComboBox<String> attivit‡;
@@ -20,20 +23,21 @@ public class Registrazione extends JFrame implements KeyListener, ActionListener
 	public Registrazione() {
 		super("Registrazione");
 		this.setMinimumSize(new Dimension(420, 500));
-		this.setLayout(new GridLayout(10, 1));
+		this.setLayout(new GridLayout(11, 1));
 	
-		nome = pannello1("        Nome:", 25);
-		cognome = pannello1("  Cognome:", 25);
+		nome = pannello1("         Nome:", 25);
+		cognome = pannello1("  Cognome: ", 25);
 		username = pannello1("*UserName:", 25);
-		password = pannello1("*Password:", 25);
+		password = pannello1("*Password: ", 25);
 		
 		String [] genderStr = {"uomo", "donna"};
 		sesso = pannello3("Sesso:", genderStr);
 		
+		annoDiNascita = pannello2("*Anno di nascita (yyyy):", 5);
 		altezza = pannello2("*Altezza (cm):", 5);
-		peso = pannello2("      *Peso (kg):", 5);
+		peso = pannello2("    *Peso (kg):", 5);
 		
-		String [] attivit‡Str = {"Da scarsa ad assente", "Attivit‡ leggera", "Attivit‡ moderata", "Attivit‡ pesante"};
+		String [] attivit‡Str = {"Leggera", "Moderata", "Pesante"};
 		attivit‡ = pannello3("Livello di attivit‡:", attivit‡Str);
 		
 		JPanel p9 = pannello(null);
@@ -94,7 +98,7 @@ public class Registrazione extends JFrame implements KeyListener, ActionListener
 	}
 
 	/*metodo che determina l'azione da eseguire quando viene inserito un carattere non numerico 
-	 *nei TextField peso e altezza*/
+	 *nei TextField annoDiNascita, peso e altezza*/
 	public void keyPressed(KeyEvent e) {
 		char c = e.getKeyChar();
 		if((c < '0' || c > '9') && c != '\b'){
@@ -116,11 +120,16 @@ public class Registrazione extends JFrame implements KeyListener, ActionListener
 	}
 
 	/*metodo che determina l'azione da eseguire quando viene premuto il bottone per l'iscrizione
-	 * (i campi username, password, altezza e peso non possono essere vuoti, l'altezza non puÚ superare i 300 cm, il peso non puÚ superare i 500 kg)
+	 * (i campi username, password, annoDiNascita, altezza e peso non possono essere vuoti, 
+	 * l'altezza non puÚ superare i 300 cm, 
+	 * il peso non puÚ superare i 500 kg,
+	 * l'iscrizione Ë consentita a utenti di almento 14 anni e massimo 100
+	 * --->pertanto l'anno di nascita dovr‡ essere compreso tra "l'anno corrente-14" e "l'anno corrente-100"
+	 * )
 	 * si cerca nel DB se lo username scelto puÚ essere accettato o meno*/
 	public void actionPerformed(ActionEvent e) {
 		boolean cont = true;
-		if(username.getText().isEmpty() || password.getText().isEmpty() || altezza.getText().isEmpty() || peso.getText().isEmpty()){
+		if(username.getText().isEmpty() || password.getText().isEmpty() || annoDiNascita.getText().isEmpty() || altezza.getText().isEmpty() || peso.getText().isEmpty()){
 			new Errore("Riempire i campi obbligatori");
 			cont = false;
 		}
@@ -130,6 +139,11 @@ public class Registrazione extends JFrame implements KeyListener, ActionListener
 		}
 		if(Integer.parseInt(peso.getText())>500){
 			new Errore("Inserire un peso non superiore ai 500 kg", "Impossibile procedere con la registrazione");
+			cont = false;
+		}
+		if(Integer.parseInt(annoDiNascita.getText())<(Calendar.getInstance().get(Calendar.YEAR)-100) 
+				|| Integer.parseInt(annoDiNascita.getText())>(Calendar.getInstance().get(Calendar.YEAR)-14)){
+			new Errore("Inserire un anno di nascita valido", "Iscrizione consentita ad utenti di et‡ compresa tra 14 e 100 anni", "Impossibile procedere con la registrazione");
 			cont = false;
 		}
 		
@@ -142,7 +156,7 @@ public class Registrazione extends JFrame implements KeyListener, ActionListener
 				}
 				else {
 					Database.update("INSERT INTO Utente VALUES ('" +username.getText()+ "','" + password.getText()+ "','"
-						+nome.getText()+ "','" + cognome.getText() + "','" +sesso.getSelectedItem()+ "','" 
+						+nome.getText()+ "','" + cognome.getText() + "','" +sesso.getSelectedItem()+ "','"  +annoDiNascita.getText()+ "','"
 						+peso.getText()+ "','" +altezza.getText()+ "','" +attivit‡.getSelectedItem()+ "')");
 		
 					JFrame p = new JFrame();

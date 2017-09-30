@@ -16,22 +16,18 @@ public class Login extends JFrame implements ActionListener {
 	public Login(){
 		super("Salute");
 		this.setMinimumSize(new Dimension(1380, 500));
-		//this.getContentPane().setBackground(Color.);
 		this.setLayout(new BorderLayout());
 		
 		JLabel intro = new JLabel("Benvenuto", JLabel.CENTER);
-		//intro.setForeground(Color.);
 		intro.setFont(new Font("", Font.BOLD, 40));
 		this.add(intro, BorderLayout.NORTH);
 		
 		JPanel p1 = new JPanel();
-		//p1.setBackground(Color.);
 		p1.setLayout(new GridLayout(2, 1));
 		
 		JLabel descr1 = new JLabel("Inserisci le tue credenziali per effettuare l'accesso", JLabel.CENTER);
 		
 		JPanel p2 = new JPanel();
-		//p2.setBackground(Color.);
 		p2.setLayout(new FlowLayout());
 		
 		JLabel user = new JLabel("username:");
@@ -83,8 +79,9 @@ public class Login extends JFrame implements ActionListener {
 			try {
 				ResultSet rs = Database.query("SELECT * from Utente where username = '" +username.getText()+ "' AND password = '" +String.valueOf(password.getPassword())+ "'");
 				if (rs.next()){
-					this.dispose();
-					new HomePage(username.getText());
+					this.setVisible(false);
+					new HomePage(rs.getString("username"));
+					
 				}
 				else {
 					new Errore("Username o Password errati");
@@ -120,9 +117,6 @@ public class Login extends JFrame implements ActionListener {
 		    // handle exception
 		}
 		
-		new Login();
-		
+		new Login();	
 	}
-	
-	
 }

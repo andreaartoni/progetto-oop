@@ -1,0 +1,128 @@
+package __ProgettoEsameOOP;
+
+import java.sql.*;
+import java.util.*;
+
+public class Utente {
+	
+	private String sesso;
+	private int età;
+	private int altezza;
+	private int peso;
+	private String attività;
+	
+
+	public Utente(String username){
+		ResultSet rs = Database.query("SELECT * from Utente where username = '" +username+ "'");
+		try {
+			this.sesso=rs.getString("sesso");
+			this.età=(Calendar.getInstance().get(Calendar.YEAR)-rs.getInt("annoDiNascita"));
+			this.altezza=rs.getInt("altezza");
+			this.peso=rs.getInt("peso");
+			this.attività=rs.getString("attività");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public String getSesso(){
+		return sesso;
+	}
+	
+	public int getEtà(){
+		return età;
+	}
+	
+	public int getAltezza(){
+		return altezza;
+	}
+	
+	public int getPeso(){
+		return peso;
+	}
+	
+	public String getAttività(){
+		return attività;
+	}
+	
+	public double metabolismoBasale(){
+		double mb = 0;
+		
+		if(età<18){
+			if(sesso.equals("donna")){
+				mb=((peso*8.36)+(altezza*162)+370);
+			}
+			else
+				mb=((peso*16.2)+(altezza*131)+416);
+		}
+		if(età>=18 && età<30){
+			if(sesso.equals("donna")){
+				mb=((peso*14.7)+496);
+			}
+			else
+				mb=((peso*15.3)+679);
+		}
+		if(età>=30 && età<60){
+			if(sesso.equals("donna")){
+				mb=((peso*8.7)+829);
+			}
+			else
+				mb=((peso*11.6)+879);
+		}
+		if(età>=60 && età<75){
+			if(sesso.equals("donna")){
+				mb=((peso*9.2)+688);
+			}
+			else
+				mb=((peso*11.9)+700);
+		}
+		if(età>=75){
+			if(sesso.equals("donna")){
+				mb=((peso*9.8)+624);
+			}
+			else
+				mb=((peso*8.4)+819);
+		}
+		return mb;
+	}
+	
+	public double livelloAttivitàFisica(){
+		double laf = 0;
+		if(età>=75){
+			if(sesso.equals("donna")){
+				laf = 1.37;
+			}
+			else
+				laf = 1.33;
+		}
+		if(età>=60 && età<75){
+			if(sesso.equals("donna")){
+				laf = 1.44;
+			}
+			else
+				laf = 1.40;
+		}
+		if(età<60){
+			if(attività.equals("Leggera") && sesso.equals("donna")){
+				laf=1.42;
+			}
+			if(attività.equals("Leggera") && sesso.equals("uomo")){
+				laf=1.41;
+			}
+			if(attività.equals("Moderata") && sesso.equals("donna")){
+				laf=1.56;
+			}
+			if(attività.equals("Moderata") && sesso.equals("uomo")){
+				laf=1.70;
+			}
+			if(attività.equals("Pesante") && sesso.equals("donna")){
+				laf=1.73;
+			}
+			if(attività.equals("Pesante") && sesso.equals("uomo")){
+				laf=2.01;
+			}
+		}
+		return laf;
+	}
+}
