@@ -37,11 +37,16 @@ public class Modello extends JFrame {
 	public static JLabel f3;
 	public static JLabel f4;
 	public static JLabel f5;
+	public static JLabel totColazione;
+	public static JLabel totPranzo;
+	public static JLabel totCena;
+	public static JLabel totSnack;
+	public static JLabel totSport;
 	private JButton bilancio;
 	private JLabel fabbisogno;
 	private JLabel totaleKcal; //
-	private JLabel tot;
-	private JLabel fab;
+	public static JLabel tot;
+	public static JLabel fab;
 	private JLabel dif;
 	private JToolBar bar;
 	private Date dt;
@@ -51,7 +56,7 @@ public class Modello extends JFrame {
 	private JButton cibo;
 	int t=0;
 	
-	public Modello(int n) {
+	public Modello(int n, String username) {
 		super("Diario");
 		
 		primaColazione=new JTextField("");
@@ -64,12 +69,24 @@ public class Modello extends JFrame {
 		quantit‡3=new JTextField("");
 		quantit‡4=new JTextField("");
 		numeroOre=new JTextField("");
-	
+		
 		f1=new JLabel("0");
 		f2=new JLabel("0");
 		f3=new JLabel("0");
 		f4=new JLabel("0");
 		f5=new JLabel("0");
+	
+		totColazione=new JLabel("0");
+		totPranzo=new JLabel("0");
+		totCena=new JLabel("0");
+		totSnack=new JLabel("0");
+		totSport=new JLabel("0");
+		
+		
+		dt=new Date();
+		dateFormat=new SimpleDateFormat("dd/MM/yyyy");
+		day = dateFormat.format(dt);
+		Diario.calorieAssunte(day, username);
 
 		bilancio=new JButton("Assunte troppe calorie o no?");
 
@@ -87,8 +104,9 @@ public class Modello extends JFrame {
 		
 		totaleKcal= new JLabel("Totale delle calorie acquisite");
 		fabbisogno=new JLabel("Fabbisogno energetico");
-		tot=new JLabel("0");
-		fab=new JLabel(String.valueOf(n));
+		int totale = Integer.parseInt(totColazione.getText())+Integer.parseInt(totPranzo.getText())+Integer.parseInt(totCena.getText())+Integer.parseInt(totSnack.getText());
+		tot=new JLabel(String.valueOf(totale));
+		fab=new JLabel(String.valueOf(n+Integer.parseInt(totSport.getText())));
 		
 		dif=new JLabel();
 		bar=new JToolBar();
@@ -120,15 +138,19 @@ public class Modello extends JFrame {
 		    			}
 		    		});
 		            
+		            buttonSave.addActionListener(new ActionListener(){
+		    			public void actionPerformed(ActionEvent e){
+		    				Diario.aggiorna(day, username);
+		    			}
+		    		});
+		            
+		            
 		        } catch (Exception ex) {
 		                ex.printStackTrace();
 		        }
 		
-		dt=new Date();
-		dateFormat=new SimpleDateFormat("dd/MM/yyyy");
-		day = dateFormat.format(dt);
+	
         lblday.setText(day);
-        
         
 		JPanel p0 = new JPanel();
 		p0.add(lblday);
@@ -136,7 +158,6 @@ public class Modello extends JFrame {
 		p0.add(cibo);
 		setLayout(new BorderLayout());
 		add(p0, BorderLayout.NORTH);
-		
 		
 		
 		cibo.addActionListener(new ActionListener(){
@@ -219,13 +240,14 @@ public class Modello extends JFrame {
 		});
 			
 		JPanel p1 = new JPanel();
-		p1.setLayout(new GridLayout(5, 8));
+		p1.setLayout(new GridLayout(5, 9));
 		p1.add(primaColazione);
-		p1.add(new JLabel("primaColazione"));
+		p1.add(new JLabel("Prima Colazione"));
 		p1.add(quantit‡1);
 		p1.add(new JLabel("quantit‡ per 100g"));
 		p1.add(calcola1);
 	    p1.add(f1);
+	    p1.add(totColazione);
 		p1.add(new JLabel("Kcal"));
 		p1.add(l1);
 		p1.add(pranzo);
@@ -234,6 +256,7 @@ public class Modello extends JFrame {
 		p1.add(new JLabel("quantit‡ per 100g"));
 		p1.add(calcola2);
 		p1.add(f2);
+		p1.add(totPranzo);
 		p1.add(new JLabel("Kcal"));
 		p1.add(l2);
 		p1.add(cena);
@@ -242,6 +265,7 @@ public class Modello extends JFrame {
 		p1.add(new JLabel("quantit‡ per 100g"));
 		p1.add(calcola3);
 		p1.add(f3);
+		p1.add(totCena);
 		p1.add(new JLabel("Kcal"));
 		p1.add(l3);
 		p1.add(snack);
@@ -250,14 +274,16 @@ public class Modello extends JFrame {
 		p1.add(new JLabel("quantit‡ per 100g"));
 		p1.add(calcola4);
 		p1.add(f4);
+		p1.add(totSnack);
 		p1.add(new JLabel("Kcal"));
 		p1.add(l4);
 		p1.add(attivit‡Fisica);
-		p1.add(new JLabel("attivit‡Fisica"));
+		p1.add(new JLabel("attivit‡ fisica"));
 		p1.add(numeroOre);
-		p1.add(new JLabel("numeroOre"));
+		p1.add(new JLabel("numero ore"));
 		p1.add(calcola5);
 		p1.add(f5);
+		p1.add(totSport);
 		p1.add(new JLabel("Kcal"));
 		p1.add(l5);
 		
@@ -335,7 +361,6 @@ public class Modello extends JFrame {
 			public void actionPerformed(ActionEvent e){
 			int totaleAssunto=Integer.parseInt(tot.getText());
 			int totaleFabbisogno=Integer.parseInt(fab.getText());
-			System.out.println(String.valueOf(totaleAssunto-totaleFabbisogno));
 			if(totaleAssunto<=totaleFabbisogno)
 				dif.setText("No");
 			else
@@ -347,7 +372,9 @@ public class Modello extends JFrame {
 			public void actionPerformed (ActionEvent e){
 					try {
 						Diario.colazione();
-						tot.setText(String.valueOf(Integer.parseInt(tot.getText())+Integer.parseInt(f1.getText())));
+						int k=Integer.parseInt(f1.getText());
+						totColazione.setText(String.valueOf(Integer.parseInt(totColazione.getText())+k));
+						tot.setText(String.valueOf(Integer.parseInt(tot.getText())+k));
 					} catch(Exception ex) {
 					     ex.printStackTrace();
 					}
@@ -358,7 +385,9 @@ public class Modello extends JFrame {
 			public void actionPerformed (ActionEvent e){
 					try {
 						Diario.pranzo();
-						tot.setText(String.valueOf(Integer.parseInt(tot.getText())+Integer.parseInt(f2.getText())));
+						int k=Integer.parseInt(f2.getText());
+						totPranzo.setText(String.valueOf(Integer.parseInt(totPranzo.getText())+k));
+						tot.setText(String.valueOf(Integer.parseInt(tot.getText())+k));
 					} catch(Exception ex) {
 					     ex.printStackTrace();
 					}	
@@ -369,7 +398,9 @@ public class Modello extends JFrame {
 			public void actionPerformed (ActionEvent e){
 					try {
 						Diario.cena();
-						tot.setText(String.valueOf(Integer.parseInt(tot.getText())+Integer.parseInt(f3.getText())));
+						int k=Integer.parseInt(f3.getText());
+						totCena.setText(String.valueOf(Integer.parseInt(totCena.getText())+k));
+						tot.setText(String.valueOf(Integer.parseInt(tot.getText())+k));
 					} catch(Exception ex) {
 					     ex.printStackTrace();
 					}	
@@ -380,7 +411,9 @@ public class Modello extends JFrame {
 			public void actionPerformed (ActionEvent e){
 					try {
 						Diario.snack();
-						tot.setText(String.valueOf(Integer.parseInt(tot.getText())+Integer.parseInt(f4.getText())));
+						int k=Integer.parseInt(f4.getText());
+						totSnack.setText(String.valueOf(Integer.parseInt(totSnack.getText())+k));
+						tot.setText(String.valueOf(Integer.parseInt(tot.getText())+k));
 					} catch(SQLException ex) {
 					     ex.printStackTrace();
 					}	
@@ -391,7 +424,9 @@ public class Modello extends JFrame {
 			public void actionPerformed (ActionEvent e){
 					try{
 						Diario.sport();
-						fab.setText(String.valueOf(Integer.parseInt(tot.getText())+Integer.parseInt(f5.getText())));
+						int k=Integer.parseInt(f5.getText());
+						totSport.setText(String.valueOf(Integer.parseInt(totSport.getText())+k));
+						fab.setText(String.valueOf(Integer.parseInt(tot.getText())+k));
 					}catch (Exception ex)
 			        {
 			            ex.printStackTrace();
@@ -399,7 +434,6 @@ public class Modello extends JFrame {
 			}
 		});
 
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setSize(1200, 650);
 		setVisible(true);
 	}

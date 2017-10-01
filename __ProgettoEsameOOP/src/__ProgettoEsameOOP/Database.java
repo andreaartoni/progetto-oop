@@ -35,6 +35,12 @@ public class Database {
         	
         	st.executeUpdate("CREATE TABLE IF NOT EXISTS alimenti (nome VARCHAR(50) PRIMARY KEY ,kcal_100g INTEGER)");
     		st.executeUpdate("CREATE TABLE IF NOT EXISTS sport (nome VARCHAR(50) PRIMARY KEY , kcal_ora INTEGER)");
+    		
+    		st.executeUpdate("CREATE TABLE IF NOT EXISTS Diario (username varchar (25) references Utente, data varchar(10), "
+    				+ "kcal_colazione int default 0, kcal_pranzo int default 0,"
+    				+ " kcal_cena int default 0, kcal_snack int default 0, kcal_sport int default 0, salute varchar(50),"
+    				+ " PRIMARY KEY(username, data))");
+ 
         }
 		catch (SQLException e){ 
 			e.printStackTrace();
