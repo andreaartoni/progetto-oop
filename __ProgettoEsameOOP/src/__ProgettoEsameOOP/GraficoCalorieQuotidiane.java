@@ -36,10 +36,14 @@ public class GraficoCalorieQuotidiane extends JFrame{
 		ResultSet rs = Database.query("SELECT * FROM Diario WHERE username='"+username+"' AND data='"+data+"'");
 		try {
 			if(rs.next()){
-					dataset.setValue("Prima Colazione", new Double(rs.getInt("kcal_colazione")));
-					dataset.setValue("Pranzo", new Double(rs.getInt("kcal_pranzo")));
-					dataset.setValue("Cena", new Double(rs.getInt("kcal_cena")));
-					dataset.setValue("Snack", new Double(rs.getInt("kcal_snack")));
+					if(rs.getInt("kcal_colazione")!=0)
+						dataset.setValue("Prima Colazione", new Double(rs.getInt("kcal_colazione")));
+					if(rs.getInt("kcal_pranzo")!=0)
+						dataset.setValue("Pranzo", new Double(rs.getInt("kcal_pranzo")));
+					if(rs.getInt("kcal_cena")!=0)
+						dataset.setValue("Cena", new Double(rs.getInt("kcal_cena")));
+					if(rs.getInt("kcal_snack")!=0)
+						dataset.setValue("Snack", new Double(rs.getInt("kcal_snack")));
 					salute=rs.getString("salute");
 			}
 		} catch (SQLException e) {
