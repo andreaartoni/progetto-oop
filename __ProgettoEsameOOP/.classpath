@@ -5,5 +5,8 @@
 	<classpathentry kind="lib" path="C:/Users/marra/Desktop/Università/ProgettoFinitoMale/c14m21marsan9967/_Homeproject_/lib/sqlite-jdbc-3.19.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/marra/Desktop/Università/ProgettoFinitoMale/c14m21marsan9967/_Homeproject_/lib/jcommon-1.0.23.jar"/>
 	<classpathentry kind="lib" path="C:/Users/marra/Desktop/Università/ProgettoOOP/progetto-oop/__ProgettoEsameOOP/lib/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ANDREAA/Desktop/Progetto oop/progetto-oop/__ProgettoEsameOOP/lib/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ANDREAA/Desktop/Progetto oop/progetto-oop/__ProgettoEsameOOP/lib/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ANDREAA/Desktop/Progetto oop/progetto-oop/__ProgettoEsameOOP/lib/sqlite-jdbc-3.19.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
