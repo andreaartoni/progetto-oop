@@ -33,6 +33,7 @@ public class Database {
         			+ "nome varchar(15), cognome varchar(20), sesso varchar(5), annoDiNascita int, peso int, "
         			+ "altezza int, attività varchar(30))"); 
         	
+        	st.executeUpdate("DROP TABLE IF EXISTS Diario");
         	st.executeUpdate("CREATE TABLE IF NOT EXISTS alimenti (nome VARCHAR(50) PRIMARY KEY ,kcal_100g INTEGER)");
     		st.executeUpdate("CREATE TABLE IF NOT EXISTS sport (nome VARCHAR(50) PRIMARY KEY , kcal_ora INTEGER)");
     		

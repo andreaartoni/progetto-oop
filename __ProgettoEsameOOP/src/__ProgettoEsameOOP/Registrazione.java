@@ -101,10 +101,10 @@ public class Registrazione extends JFrame implements KeyListener, ActionListener
 	 *nei TextField annoDiNascita, peso e altezza*/
 	public void keyPressed(KeyEvent e) {
 		char c = e.getKeyChar();
+		JTextField tf = (JTextField)e.getSource();
 		if((c < '0' || c > '9') && c != '\b'){
 			new Errore("Inserito un carattere non numerico");
-			JTextField tf = (JTextField)e.getSource();
-		    tf.setText(null);
+		    tf.setText("");
 		}
 	}
 
