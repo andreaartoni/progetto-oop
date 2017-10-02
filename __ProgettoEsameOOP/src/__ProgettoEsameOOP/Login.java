@@ -12,6 +12,7 @@ public class Login extends JFrame implements ActionListener {
 	private JPasswordField password;
 	private JButton login;
 	private JButton registrazione;
+	private JMenuItem admin;
 	
 	public Login(){
 		super("Salute");
@@ -68,7 +69,17 @@ public class Login extends JFrame implements ActionListener {
 		JLabel img2 = new JLabel(new ImageIcon("immagini/bilancia.png"));	
 		this.add(img2, BorderLayout.WEST);
 		
-     
+		
+		JMenuBar mbar = new JMenuBar();
+		JMenu m = new JMenu("Opzioni");
+		admin = new JMenuItem("Admin");
+		admin.addActionListener(this);
+		mbar.add(m);
+		m.add(admin);
+
+		this.setJMenuBar(mbar);
+		
+		
 		this.setSize(50, 50);
 		this.setVisible(true);
 	}
@@ -91,8 +102,12 @@ public class Login extends JFrame implements ActionListener {
 				System.out.println("Errore nell' interrogazione al DB");
 			}
 		}
-		else {
+		if(e.getSource() == registrazione){
 			new Registrazione();
+		}
+		if(e.getSource() == admin){
+			this.dispose();
+			new LoginAmministratore();
 		}
 	}
 
