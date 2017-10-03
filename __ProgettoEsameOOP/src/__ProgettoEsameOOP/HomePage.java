@@ -2,9 +2,6 @@ package __ProgettoEsameOOP;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.swing.*;
 
 
@@ -114,9 +111,7 @@ public class HomePage extends JFrame implements ActionListener, MouseListener{
 			 * si aprirà una finestra che dirà di selezionare una data da una JCombBox (in cui compaiono 
 			 * le date associate a un determinato username), una volta selezionata la data verrà visualizzato il grafico
 			 */
-			Date dt=new Date();
-			SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
-			new GraficoCalorieQuotidiane(username, dateFormat.format(dt));
+			new GraficoCalorieQuotidiane(username);
 		}
 		if(e.getSource() == diarioUpdate){
 			new Modello(fb, username);

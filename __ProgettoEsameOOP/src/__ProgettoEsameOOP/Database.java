@@ -40,7 +40,6 @@ public class Database {
     				+ "kcal_colazione int default 0, kcal_pranzo int default 0,"
     				+ " kcal_cena int default 0, kcal_snack int default 0, kcal_sport int default 0, salute varchar(50),"
     				+ " PRIMARY KEY(username, data))");
-   
  
         }
 		catch (SQLException e){ 
